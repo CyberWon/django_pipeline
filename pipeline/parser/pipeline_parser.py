@@ -92,7 +92,7 @@ class PipelineParser(object):
             act_cls = getattr(activity, act[PE.type])
             if act[PE.type] == PE.ServiceActivity:
                 component = ComponentLibrary.get_component(
-                    act[PE.component][PE.code], act[PE.component][PE.inputs]
+                    act[PE.component][PE.code], act[PE.component][PE.data]
                 )
                 service = component.service()
                 data = component.data_for_execution(context, pipeline_data)

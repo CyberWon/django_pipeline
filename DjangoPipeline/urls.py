@@ -14,11 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.http.response import JsonResponse
 from pipeline.service import task_service
 from pipeline.parser.pipeline_parser import PipelineParser
 from pipeline.tests.pipeline_parser.data import NewData
+from api.views import BusinessInfoAPI, BusinessAPI
 
 
 def testTask(request):
@@ -27,10 +28,14 @@ def testTask(request):
     pipeline = parser_obj.parser()
     act_result = task_service.run_pipeline(pipeline)
     print(act_result)
-    return JsonResponse({},safe=False)
+    return JsonResponse({}, safe=False)
 
 
 urlpatterns = [
+    path('api/v3/', include('api.views')),
+    path('taskflow/api/', include('api.taskflow')),
+    path('core/api/get_basic_info/', BusinessInfoAPI.as_view()),
+    path('get_business_basic_info/<int:business_id>/', BusinessInfoAPI.as_view()),
     path('', testTask),
     path('admin/', admin.site.urls),
 ]

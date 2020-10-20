@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'djcelery',
+    'rest_framework',
     'django_signal_valve',
     'pipeline',
     'pipeline.component_framework',
@@ -130,6 +131,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 REDIS = {
     'host': 'localhost',
     'port': 6379,
@@ -144,3 +148,4 @@ CELERY_TIMEZONE = 'Asia/Shanghai'
 # CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 CELERY_RESULT_BACKEND = BROKER_URL
 djcelery.setup_loader()
+ALLOWED_HOSTS = ["*"]

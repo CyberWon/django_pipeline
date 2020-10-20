@@ -330,6 +330,7 @@ def get_status_tree(node_id, max_depth=1):
         raise exceptions.InvalidOperationException('node(%s) does not exist, may have not by executed' % node_id)
     descendants = map(lambda rel: rel.descendant_id, rel_qs)
     # remove root node
+
     descendants.remove(node_id)
 
     rel_qs = NodeRelationship.objects.filter(descendant_id__in=descendants, distance=1)

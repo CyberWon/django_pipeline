@@ -13,8 +13,9 @@ class FabricService(Service):
 
 
 class FabricComponent(Component):
-    name = "fabric"
-    code = 'fabric'
+    name = "远程执行命令(SSH)-fabric"
+    code = 'ssh_fabric'
+    form="/static/components/atoms/ssh/fabric.js"
     bound_service = FabricService
 
 
@@ -28,8 +29,9 @@ class AnsibleService(Service):
 
 
 class AnsibleComponent(Component):
-    name = "ansible"
-    code = 'ansible'
+    name = "远程执行命令(SSH)-ansible"
+    code = 'ssh_ansible'
+    form = "/static/components/atoms/ssh/ansible.js"
     bound_service = AnsibleService
 
 
@@ -43,6 +45,7 @@ class AnsiblePlaybookService(Service):
 
 
 class AnsibleComponent(Component):
-    name = "ansible_playbook"
-    code = 'ansible_playbook'
+    name = "远程执行命令(SSH)-ansible_playbook"
+    code = 'ssh_ansible_playbook'
+    form = "/static/components/atoms/ssh/ansible_playbook.js"
     bound_service = AnsiblePlaybookService

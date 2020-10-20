@@ -278,7 +278,8 @@ class PipelineTemplate(models.Model):
     description = models.TextField(_(u'描述'), null=True, blank=True)
     editor = models.CharField(_(u'修改者'), max_length=32, null=True, blank=True)
     edit_time = models.DateTimeField(_(u'修改时间'), auto_now=True)
-    snapshot = models.ForeignKey(Snapshot, verbose_name=_(u'模板结构数据'), related_name='snapshot_templates',on_delete=None)
+    snapshot = models.ForeignKey(Snapshot, verbose_name=_(u'模板结构数据'), related_name='snapshot_templates',
+                                 on_delete=models.DO_NOTHING)
     has_subprocess = models.BooleanField(_(u'是否含有子流程'), default=False)
     is_deleted = models.BooleanField(
         _(u'是否删除'),
@@ -486,8 +487,8 @@ class TemplateVersion(models.Model):
     """
     模板版本号记录节点
     """
-    template = models.ForeignKey(PipelineTemplate, verbose_name=_(u"模板 ID"), null=False,on_delete=models.CASCADE)
-    snapshot = models.ForeignKey(Snapshot, verbose_name=_(u"模板数据 ID"), null=False,on_delete=models.CASCADE)
+    template = models.ForeignKey(PipelineTemplate, verbose_name=_(u"模板 ID"), null=False, on_delete=models.CASCADE)
+    snapshot = models.ForeignKey(Snapshot, verbose_name=_(u"模板数据 ID"), null=False, on_delete=models.CASCADE)
     md5 = models.CharField(_(u"快照字符串的md5"), max_length=32, db_index=True)
     date = models.DateTimeField(_(u"添加日期"), auto_now_add=True)
 
@@ -498,7 +499,8 @@ class TemplateScheme(models.Model):
     """
     模板执行方案
     """
-    template = models.ForeignKey(PipelineTemplate, verbose_name=_(u"对应模板 ID"), null=False, blank=False,on_delete=models.CASCADE)
+    template = models.ForeignKey(PipelineTemplate, verbose_name=_(u"对应模板 ID"), null=False, blank=False,
+                                 on_delete=models.CASCADE)
     unique_id = models.CharField(_(u"方案唯一ID"), max_length=97, unique=True, null=False, blank=True)
     name = models.CharField(_(u"方案名称"), max_length=64, null=False, blank=False)
     edit_time = models.DateTimeField(_(u"修改时间"), auto_now=True)
@@ -583,7 +585,7 @@ class PipelineInstance(models.Model):
     """
     流程实例对象
     """
-    template = models.ForeignKey(PipelineTemplate, verbose_name=_(u'Pipeline模板'),on_delete=models.CASCADE)
+    template = models.ForeignKey(PipelineTemplate, verbose_name=_(u'Pipeline模板'), on_delete=models.CASCADE)
     instance_id = models.CharField(_(u'实例ID'), max_length=32, unique=True)
     name = models.CharField(_(u'实例名称'), max_length=MAX_LEN_OF_NAME, default='default_instance')
     creator = models.CharField(_(u'创建者'), max_length=32, blank=True)
